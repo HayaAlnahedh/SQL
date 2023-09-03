@@ -1,0 +1,32 @@
+--> Creating a pet store database
+
+CREATE TABLE pet_store (id INTEGER PRIMARY KEY, item TEXT, aisle INTEGER, quantity INTEGER, price REAL);
+
+INSERT INTO pet_store VALUES (1, "food", 1, 10, 23.3);
+INSERT INTO pet_store VALUES (2, "litter_box", 3, 5, 15.2);
+INSERT INTO pet_store VALUES (3, "treats", 1, 50, 2);
+INSERT INTO pet_store VALUES (4, "toys", 2, 30, 10.5);
+INSERT INTO pet_store VALUES (5, "bed", 3, 5, 8.25);
+INSERT INTO pet_store VALUES (6, "collars", 4, 5, 2);
+INSERT INTO pet_store VALUES (7, "leashes", 4, 5, 4.5);
+INSERT INTO pet_store VALUES (8, "harnesses", 4, 8, 8);
+INSERT INTO pet_store VALUES (9, "crates", 3, 2, 12.75);
+INSERT INTO pet_store VALUES (10, "clickers", 2, 10, 1.5);
+INSERT INTO pet_store VALUES (11, "shampoo", 5, 11, 17.4);
+INSERT INTO pet_store VALUES (12, "brushes", 5, 15, 3);
+INSERT INTO pet_store VALUES (13, "combs", 5, 7, 6);
+INSERT INTO pet_store VALUES (14, "pet_gates", 6, 3, 21.99);
+INSERT INTO pet_store VALUES (15, "pet_monitor", 6, 4, 56.3);
+
+--> Displaying the database ordered by price. 
+SELECT * FROM pet_store 
+ORDER BY aisle;
+
+--> Displaying the average price of each item.
+SELECT item, AVG(price) 
+FROM pet_store GROUPED BY item;
+
+--> Displaying the 5 least available items in the store. 
+SELECT item, quantity 
+FROM pet_store 
+ORDER BY quantity  LIMIT 7;
