@@ -1,0 +1,63 @@
+--> I am quantifying statistics and filtering data about customer and order data from a database with multiple tables in it by using sqlitestudio. 
+
+1. How many orders were placed in January? 
+SELECT COUNT(orderID)
+FROM BIT_DB.JanSales
+WHERE LENGTH (orderID)=6 AND orderID <>'Order ID';
+
+
+2. How many of those orders were for an iPhone? 
+SELECT COUNT(orderID)
+FROM BIT_DB.JanSales
+WHERE Product='iPhone' 
+AND LENGTH (orderID)=6 AND orderID <>'Order ID';
+
+
+3. Select the customer account numbers for all the orders that were placed in February. 
+SELECT distinct acctnum
+FROM BIT_DB.customers cust
+INNER JOIN BIT_DB.FebSales Feb
+ON cust.order_id=FEB.orderID
+WHERE length(orderid) = 6 
+AND orderID <> 'Order ID'
+
+
+4. Which product was the cheapest one sold in January, and what was the price? 
+SELECT DISTINCT Product, min(Price)
+from BIT_DB.JanSales
+group by Product, Price
+order by price ASC LIMIT 1;
+
+
+5. What is the total revenue for each product sold in January?
+SELECT Product, SUM(Quantity)*price as Revenue
+from BIT_DB.JanSales
+Group by Product;
+
+
+6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+SELECT Product, 
+sum(Quantity), 
+SUM(Quantity)*price as Revenue
+FROM BIT_DB.FebSales
+WHERe location=  '548 Lincoln St, Seattle, WA 98101'
+GROUP BY product;
+
+
+7. How many customers ordered more than 2 products at a time, and what was the average amount spent for those customers? 
+Select 
+count (distinct cust.acctnum), avg( Quantity*price) 
+FROM BIT_DB.FebSales feb
+INNER JOIN BIT_DB.customers cust
+ON cust.order_id = feb.orderID
+WHERE feb.Quantity> 2
+AND length(orderid)=6
+and orderid <> 'Order ID';
+
+
+8. List all the products sold in Los Angeles in February, and include how many of each were sold. 
+SELECT Product, SUM(quantity) 
+FROM BIT_DB.FebSales 
+WHERE location like '%Los Angeles%' 
+GROUP BY Product;
+
